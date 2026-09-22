@@ -1,9 +1,12 @@
 import { BookOpen, Calendar, Home, Settings } from "lucide-react";
 import { Link, useLocation } from "react-router";
-
+import { Avatar,AvatarFallback,AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { currentUser } from "@/lib/mock-data";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,12 +15,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 const items = [
   { title: "หน้าแรก", url: "/", icon: Home },
   { title: "ลงทะเบียนเรียน", url: "/enrollment", icon: BookOpen },
-  { title: "ตารางเรียน", url: "/schedule", icon: Calendar },
-  { title: "ตั้งค่า", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
@@ -49,6 +51,22 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="p-2">
+        <Separator className="mb-2"/>
+        <div className="flex items-center gap-3 px-2 py-1">
+          <Avatar className="h-9 w-9">
+            <AvatarImage src={currentUser.avatar} alt={currentUser.nickname}/>
+          </Avatar>
+          <div className="flex flex-col gap-1 overflow-hidden">
+            <span className="text-sm font-medium leading-none truncate">
+              {currentUser.nickname}
+            </span>
+            <Badge variant="secondary" className="w-fit text-[10px] px-1.5 py-0">
+              {currentUser.role}
+            </Badge>
+          </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
